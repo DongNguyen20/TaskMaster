@@ -1,0 +1,11 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff; /* Màu nền của thanh navbar */
+    /* Các thuộc tính khác cho giao diện của thanh navbar */
+}
+.jumbotron {
+    margin-bottom: 10px; /* Điều chỉnh kích thước khoảng cách theo ý muốn */
+}

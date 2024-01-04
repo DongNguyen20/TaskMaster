@@ -1,0 +1,137 @@
+<div xmlns:th="http://www.thymeleaf.org" class="fixed-container">
+    <style>
+        /* Thiết lập chiều cao cho body và html để đảm bảo footer luôn ở cuối trang */
+        body, html {
+            height: 100%;
+        }
+
+        /* Thiết lập container cho nội dung trang */
+        .container {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Thiết lập nội dung của trang */
+        .content {
+            flex-grow: 1;
+        }
+
+        /* Container cố định */
+        .fixed-container {
+            position: relative;
+        }
+        /* CSS cho thanh điều hướng (nav) */
+        .navbar {
+            margin-left: 20px; /* Đặt khoảng cách lề trái */
+            margin-right: 20px; /* Đặt khoảng cách lề phải */
+        }
+
+        /* CSS cho thanh điều hướng cố định */
+        .fixed-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff; /* Màu nền của thanh điều hướng */
+            z-index: 1000; /* Để đảm bảo thanh điều hướng nằm trên cùng */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho thanh điều hướng */
+        }
+
+        .jumbotron {
+            margin-bottom: 10px; /* Điều chỉnh kích thước khoảng cách theo ý muốn */
+        }
+
+        /* CSS cho dòng chào đón */
+        .welcome {
+            position: fixed;
+            top: 0;
+            right: 100%; /* Bắt đầu từ phải ngoài cùng của trang */
+            color: #013799; /* Màu chữ xanh lá cây */
+            font-size: 24px;
+            white-space: nowrap; /* Ngăn chữ bị ngắt dòng */
+            animation: slideLeft 30s linear infinite; /* Tạo hiệu ứng chuyển động từ phải qua trái */
+        }
+
+        /* Keyframes animation */
+        @keyframes slideLeft {
+            0% {
+                right: 100%;
+            }
+            100% {
+                right: -100%; /* Kết thúc ở bên trái ngoài cùng của trang */
+            }
+        }
+
+        /* CSS cho biểu tượng người dùng */
+        .user-icon {
+            font-size: 24px;
+            margin-right: 5px;
+        }
+
+        .search-form {
+            margin-left: auto; /* Đẩy form tìm kiếm sang phải */
+            display: flex;
+            align-items: center; /* Căn giữa dọc */
+        }
+
+        .search-input {
+            border-radius: 0; /* Loại bỏ viền bo tròn của input */
+            border: none;
+            border-bottom: 1px solid #ccc; /* Viền dưới */
+        }
+
+        .search-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 36px
+        }
+    </style>
+    <!-- Dòng chào đón "user" -->
+    <div class="welcome">
+        Welcome User!
+    </div>
+
+    <!-- Sử dụng header template -->
+    <div class="jumbotron text-center" style="background-image: url('static/img/16-Tasks-1.png');">
+        <h1>TASK MASTER</h1>
+        <p>Manage Your Life!</p>
+    </div>
+    <nav class="navbar navbar-expand-sm bg-black">
+        <a class="navbar-brand" href="#">KOPW</a>
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Setting</a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    View
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="#">Billing</a>
+                </div>
+            </li>
+        </ul>
+        <!-- Biểu tượng người dùng và form tìm kiếm -->
+        <div class="navbar-nav ml-auto">
+            <form class="search-form" action="/action_page.php">
+                <input class="form-control search-input" type="text" placeholder="Search">
+                <button class="search-btn" type="submit">
+                    <i class="fas fa-search"></i> <!-- Biểu tượng tìm kiếm Font Awesome -->
+                </button>
+            </form>
+            <a class="nav-item nav-link" href="#">
+                <i class="fas fa-user user-icon"></i> <!-- Biểu tượng người dùng Font Awesome -->
+            </a>
+        </div>
+    </nav>
+</div>

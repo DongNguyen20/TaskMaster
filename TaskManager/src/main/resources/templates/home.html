@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <title>Trang Home</title>
+    <style>
+        /* Thiết lập chiều cao cho body và html để đảm bảo footer luôn ở cuối trang */
+        body, html {
+            height: 100%;
+        }
+
+        /* Thiết lập container cho nội dung trang */
+        .container {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Thiết lập nội dung của trang */
+        .content {
+            flex-grow: 1;
+        }
+
+        /* Container cố định */
+        .fixed-container {
+            position: relative;
+        }
+        /* CSS cho thanh điều hướng (nav) */
+        .navbar {
+            margin-left: 20px; /* Đặt khoảng cách lề trái */
+            margin-right: 20px; /* Đặt khoảng cách lề phải */
+        }
+
+        /* CSS cho thanh điều hướng cố định */
+        .fixed-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff; /* Màu nền của thanh điều hướng */
+            z-index: 1000; /* Để đảm bảo thanh điều hướng nằm trên cùng */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho thanh điều hướng */
+        }
+
+        .jumbotron {
+            margin-bottom: 10px; /* Điều chỉnh kích thước khoảng cách theo ý muốn */
+        }
+
+        /* CSS cho dòng chào đón */
+        .welcome {
+            position: fixed;
+            top: 0;
+            right: 100%; /* Bắt đầu từ phải ngoài cùng của trang */
+            color: #013799; /* Màu chữ xanh lá cây */
+            font-size: 24px;
+            white-space: nowrap; /* Ngăn chữ bị ngắt dòng */
+            animation: slideLeft 30s linear infinite; /* Tạo hiệu ứng chuyển động từ phải qua trái */
+        }
+
+        /* Keyframes animation */
+        @keyframes slideLeft {
+            0% {
+                right: 100%;
+            }
+            100% {
+                right: -100%; /* Kết thúc ở bên trái ngoài cùng của trang */
+            }
+        }
+
+        /* CSS cho biểu tượng người dùng */
+        .user-icon {
+            font-size: 24px;
+            margin-right: 5px;
+        }
+
+        .search-form {
+            margin-left: auto; /* Đẩy form tìm kiếm sang phải */
+            display: flex;
+            align-items: center; /* Căn giữa dọc */
+        }
+
+        .search-input {
+            border-radius: 0; /* Loại bỏ viền bo tròn của input */
+            border: none;
+            border-bottom: 1px solid #ccc; /* Viền dưới */
+        }
+
+        .search-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 36px
+        }
+    </style>
+</head>
+<body>
+<!-- Include _menu.ht-->
+<div class="fixed-container">
+    <!-- Dòng chào đón "user" -->
+    <div class="welcome">
+        Welcome <span th:text="${userName}"></span> !
+    </div>
+
+    <!-- Sử dụng header template -->
+    <div class="jumbotron text-center" style="background-image: url('static/img/16-Tasks-1.png');">
+        <h1>TASK MASTER</h1>
+        <p>Manage Your Life!</p>
+    </div>
+    <nav class="navbar navbar-expand-sm bg-black">
+        <a class="navbar-brand" href="#">KOPW</a>
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Setting</a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    View
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="#">Billing</a>
+                </div>
+            </li>
+        </ul>
+        <!-- Biểu tượng người dùng và form tìm kiếm -->
+        <div class="navbar-nav ml-auto">
+            <form class="search-form" action="/action_page.php">
+                <input class="form-control search-input" type="text" placeholder="Search">
+                <button class="search-btn" type="submit">
+                    <i class="fas fa-search"></i> <!-- Biểu tượng tìm kiếm Font Awesome -->
+                </button>
+            </form>
+            <a class="nav-item nav-link" th:href="@{/logout}">
+                <i class="bi bi-box-arrow-right"></i>
+                <!-- Biểu tượng người dùng Font Awesome -->
+            </a>
+        </div>
+    </nav>
+</div>
+<!-- Các phần khác của trang Home -->
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Must Do</h3>
+                <p>Cần Làm Ngay</p>
+            </div>
+            <div class="col-sm-4">
+                <h3>Have to Do</h3>
+                <p>Phải làm</p>
+            </div>
+            <div class="col-sm-4">
+                <h3>Should Do</h3>
+                <p>Nên Làm</p>
+            </div>
+        </div>
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>John</td>
+                <td>Doe</td>
+                <td>john@example.com</td>
+            </tr>
+            <tr>
+                <td>Mary</td>
+                <td>Moe</td>
+                <td>mary@example.com</td>
+            </tr>
+            <tr>
+                <td>July</td>
+                <td>Dooley</td>
+                <td>july@example.com</td>
+            </tr>
+            <tr>
+                <td>July</td>
+                <td>Dooley</td>
+                <td>july@example.com</td>
+            </tr>
+            <tr>
+                <td>July</td>
+                <td>Dooley</td>
+                <td>july@example.com</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2>ALL Tasks</h2>
+        <p>All tasks completed</p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>State</th>
+                    <th>Percent</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Học Tiếng Anh</td>
+                    <td>học từ vựng</td>
+                    <td>8:30</td>
+                    <td>9:30</td>
+                    <td>Doing</td>
+                    <td>20%</td>
+                    <td>ACTIVE</td>
+                    <td>Edit | Delete</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Tập Thể Dục</td>
+                    <td>giảm mỡ toàn thân, nâng góc mặt </td>
+                    <td>17:30</td>
+                    <td>18:00</td>
+                    <td>Waiting</td>
+                    <td>0%</td>
+                    <td>ACTIVE</td>
+                    <td>Edit | Delete</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Giải Trí</td>
+                    <td>Cập nhật thông tin thế giới </td>
+                    <td>18:30</td>
+                    <td>19:00</td>
+                    <td>Done</td>
+                    <td>100%</td>
+                    <td>ACTIVE</td>
+                    <td>Edit | Delete</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Phỏng Vấn</td>
+                    <td>Tìm việc </td>
+                    <td>10:30</td>
+                    <td>11:00</td>
+                    <td>Pending</td>
+                    <td>100%</td>
+                    <td>DELETED</td>
+                    <td>Edit | Delete</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Sử dụng footer template -->
+<!--<div th:include="templates/footer :: footer"></div>-->
+<div class="bg-dark text-light text-center py-2">
+    <p>Contact email: changelife@kopw.com</p>
+    &copy; 2023 KOPW Group
+</div>
+<!-- Nhúng các tệp JavaScript của Bootstrap (nếu cần) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Lấy đối tượng thanh điều hướngA
+    var navbar = document.querySelector('.navbar');
+
+    // Lấy vị trí ban đầu của thanh điều hướng
+    var navbarOffset = navbar.offsetTop;
+
+    // Hàm xử lý khi cuộn trang
+    window.onscroll = function () {
+        // Lấy vị trí hiện tại khi cuộn
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Kiểm tra nếu vị trí hiện tại lớn hơn hoặc bằng vị trí ban đầu của thanh điều hướng
+        if (scrollTop >= navbarOffset) {
+            // Thêm lớp CSS để cố định thanh điều hướng
+            navbar.classList.add('fixed-navbar');
+        } else {
+            // Loại bỏ lớp CSS để hủy cố định thanh điều hướng
+            navbar.classList.remove('fixed-navbar');
+        }
+    };
+</script>
+</body>
+</html>

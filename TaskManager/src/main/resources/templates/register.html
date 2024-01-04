@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Button để mở modal đăng ký -->
+<button type="button" class="btn btn-link" data-toggle="modal" data-target="#registerModal" th:href="@{/register}">
+    Register
+</button>
+<!-- Modal đăng ký -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Đăng Ký Người Dùng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form đăng ký sẽ được đặt ở đây -->
+                <form th:action="@{/register}" method="post" th:object="${user}">
+                    <div th:if="${param.success}">
+                        <div class="alert alert-infor"> You've successfully registered!</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalUsername">Tên đăng nhập:</label>
+                        <input type="text" class="form-control" id="modalUsername" name="username"
+                               th:field="*{username}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalPassword">Mật khẩu:</label>
+                        <input type="password" class="form-control" id="modalPassword" name="password"
+                               th:field="*{password}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalUsername">Role:</label>
+                        <input type="text" class="form-control" id="modalRole" name="role" th:field="*{role}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Đăng Ký</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nhúng tệp JavaScript của Bootstrap (nếu cần) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // src/main/resources/static/js/popup.js
+    function showRegisterPopup() {
+        var popup = document.getElementById("registerPopup");
+        popup.style.display = "block";
+    }
+
+    function hideRegisterPopup() {
+        var popup = document.getElementById("registerPopup");
+        popup.style.display = "none";
+    }
+</script>
+</body>
+</html>
